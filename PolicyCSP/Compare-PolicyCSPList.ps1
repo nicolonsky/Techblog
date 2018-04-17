@@ -1,17 +1,22 @@
 $policyCSPHive= "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\"
 $csvDelimiter=","
 
-$policyCSPList1= Import-Csv -Path "$PSScriptRoot\CSPPolicyList_W10-16299.csv" -Delimiter $csvDelimiter
-$policyCSPList2= Import-Csv -Path "$PSScriptRoot\CSPPolicyList_W10-17133.csv" -Delimiter $csvDelimiter
+$policyCSPListOld= Import-Csv -Path "$PSScriptRoot\CSPPolicyList_W10-16299.csv" -Delimiter $csvDelimiter
+$policyCSPListNew= Import-Csv -Path "$PSScriptRoot\CSPPolicyList_W10-17133.csv" -Delimiter $csvDelimiter
 
 #compare lists
+$policyCSPComparison=Compare-Object -ReferenceObject $policyCSPListNew -DifferenceObject $policyCSPListOld -Property PSChildname -PassThru
 
-$policyCSPDifference=Compare-Object -ReferenceObject $policyCSPList2 -DifferenceObject $policyCSPList1 -PassThru
+#get new entries
+$newPolicyCSPDifference= $policyCSPComparison| Where-Object {$_.SideIndicator -eq "<="}
+
+#get removed entries
+$removedPolicyCSPDifference= $policyCSPComparison | Where-Object {$_.SideIndicator -eq "=>"}
 
 #create empty array
 $policyCSPDifferenceList=@()
 
-$policyCSPDifference | ForEach-Object {
+$newPolicyCSPDifference | ForEach-Object {
 
     #remove entire registry path
     $formattedPath=$($PSItem.Name).Replace($policyCSPHive,"")
