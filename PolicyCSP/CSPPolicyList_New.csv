@@ -1,4 +1,3 @@
-#TYPE System.Management.Automation.PSCustomObject
 "Group","Setting"
 "RemoteAssistance","CustomizeWarningMessages"
 "RemoteAssistance","SessionLogging"

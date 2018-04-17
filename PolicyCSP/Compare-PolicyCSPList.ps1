@@ -28,6 +28,6 @@ $policyCSPDifference | ForEach-Object {
     $policyCSPDifferenceList+= $tempObject    
 }
 
-$policyCSPDifferenceList | Export-Csv -Path "$PSScriptRoot\CSPPolicyList_New.csv" -Delimiter $csvDelimiter
+$policyCSPDifferenceList | Export-Csv -Path "$PSScriptRoot\CSPPolicyList_New.csv" -Delimiter $csvDelimiter -NoTypeInformation
 
 
