@@ -1,7 +1,20 @@
 ﻿Start-Transcript -Path $(Join-Path $env:temp "DriveMapping.log")
 
-$dnsDomainName= "tech.nicolonsky.ch"
 $driveMappingConfig=@()
+
+
+######################################################################
+#                section script configuration                        #
+######################################################################
+
+<#
+
+   Add your internal Active Directory Domain name and custom network drives below
+
+#>
+
+$dnsDomainName= "tech.nicolonsky.ch"
+
 
 $driveMappingConfig+= [PSCUSTOMOBJECT]@{
     DriveLetter = "P"
@@ -21,6 +34,10 @@ $driveMappingConfig+=  [PSCUSTOMOBJECT]@{
     UNCPath= "\\vfs01.tech.nicolonsky.ch\archiv"
     Description="Archiv"
 }
+
+######################################################################
+#               end section script configuration                     #
+######################################################################
 
 $connected=$false
 $retries=0
