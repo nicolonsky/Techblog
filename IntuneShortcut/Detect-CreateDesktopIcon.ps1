@@ -1,4 +1,4 @@
-$shortcutName="PROFFIX"
+$shortcutName="cmd"
 
 $desktopDir=$([Environment]::GetFolderPath("Desktop"))
 
