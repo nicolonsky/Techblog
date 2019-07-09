@@ -1,8 +1,8 @@
-﻿$azDriveMAppingScriptUrl= "https://ntintune.blob.core.windows.net/intune-scripts/DriveMappingScript.ps1"
+﻿$azDriveMappingScriptUrl= "https://ntintune.blob.core.windows.net/intune-scripts/DriveMappingScript.ps1"
 
 $regKeyLocation="HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
 
-$psCommand= "PowerShell.exe -ExecutionPolicy Bypass -windowstyle hidden -command $([char]34)& {(Invoke-RestMethod '$azDriveMAppingScriptUrl').Replace('ï','').Replace('»','').Replace('¿','') | Invoke-Expression}$([char]34)"
+$psCommand= "PowerShell.exe -ExecutionPolicy Bypass -Windowstyle hidden -command $([char]34)& {(Invoke-RestMethod '$azDriveMAppingScriptUrl').Replace('ï','').Replace('»','').Replace('¿','') | Invoke-Expression}$([char]34)"
 
 if (-not(Test-Path -Path $regKeyLocation)){
 

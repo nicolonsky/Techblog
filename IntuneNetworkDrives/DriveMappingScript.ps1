@@ -2,7 +2,6 @@
 
 $driveMappingConfig=@()
 
-
 ######################################################################
 #                section script configuration                        #
 ######################################################################
@@ -15,13 +14,11 @@ $driveMappingConfig=@()
 
 $dnsDomainName= "tech.nicolonsky.ch"
 
-
 $driveMappingConfig+= [PSCUSTOMOBJECT]@{
     DriveLetter = "P"
     UNCPath= "\\vfs01.tech.nicolonsky.ch\pool"
     Description="Pool"
 }
-
 
 $driveMappingConfig+=  [PSCUSTOMOBJECT]@{
     DriveLetter = "T"
@@ -73,7 +70,7 @@ do {
 
         New-PSDrive -PSProvider FileSystem -Name $PSItem.DriveLetter -Root $PSItem.UNCPath -Description $PSItem.Description -Persist -Scope global
 
-        (New-Object -ComObject Shell.Application).NameSpace("$($PSItem.DriveLEtter):").Self.Name=$PSItem.Description
+        (New-Object -ComObject Shell.Application).NameSpace("$($PSItem.DriveLetter):").Self.Name=$PSItem.Description
 }
 
 Stop-Transcript
