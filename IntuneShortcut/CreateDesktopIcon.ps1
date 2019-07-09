@@ -19,23 +19,27 @@ Param (
 #helper function to avoid uneccessary code
 function Add-Shortcut {
     param (
+        [Parameter(Mandatory=$true)]
         [String] $destinationPath
     )
 
-    $WshShell = New-Object -comObject WScript.Shell
-    $Shortcut = $WshShell.CreateShortcut($destinationPath)
-    $Shortcut.TargetPath = $ShortcutTargetPath
-    $Shortcut.Arguments = $ShortcutArguments
+    process{
 
-    if ($IconFile){
-
-        $Shortcut.IconLocation = $IconFile
+        $WshShell = New-Object -comObject WScript.Shell
+        $Shortcut = $WshShell.CreateShortcut($destinationPath)
+        $Shortcut.TargetPath = $ShortcutTargetPath
+        $Shortcut.Arguments = $ShortcutArguments
+    
+        if ($IconFile){
+    
+            $Shortcut.IconLocation = $IconFile
+        }
+    
+        $Shortcut.Save()
+    
+        #cleanup
+        [Runtime.InteropServices.Marshal]::ReleaseComObject($WshShell) | Out-Null
     }
-
-    $Shortcut.Save()
-
-    #cleanup
-    [Runtime.InteropServices.Marshal]::ReleaseComObject($WshShell) | Out-Null
 }
 
 ### Desktop shortcut
