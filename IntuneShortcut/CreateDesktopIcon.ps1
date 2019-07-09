@@ -33,6 +33,9 @@ function Add-Shortcut {
     }
 
     $Shortcut.Save()
+
+    #cleanup
+    [Runtime.InteropServices.Marshal]::ReleaseComObject($WshShell) | Out-Null
 }
 
 ### Desktop shortcut
@@ -51,9 +54,6 @@ if ($PinToStart.IsPresent -eq $true){
 
     Add-Shortcut -destinationPath $destinationPath
 }
-
-#cleanup
-[Runtime.InteropServices.Marshal]::ReleaseComObject($WshShell) | Out-Null
 
 #uninstall string for Intune
 # powershell.exe -command "&{$name='posh.lnk'; Remove-Item -Path $(Join-Path $([Environment]::GetFolderPath('Desktop')) $name) -EA SilentlyContinue; Remove-Item -Path $(Join-Path $([Environment]::GetFolderPath('StartMenu')) $name) -EA SilentlyContinue}"
