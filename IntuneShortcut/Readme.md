@@ -6,6 +6,8 @@ Create and remediate desktop and start menu shortcuts with Microsoft Intune usin
 
 Usage: ```CreateDesktopIcon.exe -ShortcutTargetPath "%ProgramFiles(x86)%\Microsoft\Edge Dev\Application\msedge.exe" -ShortcutDisplayName "nicolonsky tech" -IconFile "https://tech.nicolonsky.ch/favicon.ico" -ShortcutArguments "https://tech.nicolonsky.ch"```
 
+
+
 ![Demo](https://tech.nicolonsky.ch/content/images/2019/07/Intune-Create-Desktop-Shortcut.gif)
 
 ## Quick Overview
