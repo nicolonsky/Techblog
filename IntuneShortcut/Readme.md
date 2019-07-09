@@ -1,10 +1,12 @@
 # Create Desktop shortcuts with Microsoft Intune
 
+[Find a full post and desciption on my blog](https://tech.nicolonsky.ch/intune-create-desktop-shortcut/)
+
 Create and remediate desktop and start menu shortcuts with Microsoft Intune using Win32 app deployment. Because with OneDrive Known Folder Move the Desktop is not stored in the default user profile location we need to resolve it with the ```[Environment]::GetFolderPath("Desktop")``` method.
 
-Usage: ```CreateDesktopIcon.exe -ShortcutTargetPath "\\app01.intra.contoso.com\Programme\abacus.abalink" -ShortcutDisplayName "Abacus"```
+Usage: ```CreateDesktopIcon.exe -ShortcutTargetPath "%ProgramFiles(x86)%\Microsoft\Edge Dev\Application\msedge.exe" -ShortcutDisplayName "nicolonsky tech" -IconFile "https://tech.nicolonsky.ch/favicon.ico" -ShortcutArguments "https://tech.nicolonsky.ch"```
 
-The "Add-Shortcut.ps1" script is wrapped in an exe with Roger Zanders [PS2EXE](http://ps2exe.azurewebsites.net/). Which is again wrapped as Intune Win32 app with the [Win32 Content Prep Tool](https://github.com/Microsoft/Microsoft-Win32-Content-Prep-Tool).
+![Demo](https://tech.nicolonsky.ch/content/images/2019/07/Intune-Create-Desktop-Shortcut.gif)
 
 ## Quick Overview
 
