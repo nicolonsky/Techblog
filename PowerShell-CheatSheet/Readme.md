@@ -14,13 +14,13 @@ PowerShell knows the following output streams:
 
 [Source: Microsoft DevBlogs](https://devblogs.microsoft.com/scripting/weekend-scripter-welcome-to-the-powershell-information-stream/)
 
-```PowerShell
+Writing to the different streams is achieved with:
 
+```PowerShell
 Write-Output
 Write-Error
 Write-Warning
 Write-Verbose
 Write-Debug
-Write-Information
-
+Write-Information, Write-Host
 ```
