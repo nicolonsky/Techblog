@@ -14,8 +14,7 @@ PowerShell knows the following output streams:
 
 [Source: Microsoft DevBlogs](https://devblogs.microsoft.com/scripting/weekend-scripter-welcome-to-the-powershell-information-stream/)
 
-
-Writing to the different streams is done with:
+Writing to the different streams is achieved with:
 
 ```PowerShell
 Write-Output
