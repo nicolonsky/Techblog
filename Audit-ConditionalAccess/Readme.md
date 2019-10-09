@@ -13,13 +13,16 @@ Default Retention: https://docs.microsoft.com/en-us/azure/active-directory/repor
 
 ### Monitor CA excluded group changes </font>
 
+## Monitor CA excluded group changes
+
 The following Azure AD Groups are excluded from all Conditional Access policies (Name, AAD-Object ID):
 
-* ZZ-AS-AccountExcludedFromConditionalAccess
+* GS-AccountsExcludedFromConditionalAccess, 657085c0-0608-4b31-95e9-9925f83caa54
 
 <pre>
 AuditLogs
-| where  TargetResources[1].id in ('45f6fdde-ee59-4ec5-925b-c02b1fc9a804', '4c6fc6ed-84fb-4c82-9d8f-8d9cff3b3d96') and ActivityDisplayName == "Add member to group"</pre>
+| where  TargetResources[1].id in ('657085c0-0608-4b31-95e9-9925f83caa54') and ActivityDisplayName == "Add member to group"
+| project  ActivityDateTime, ActivityDisplayName , TargetResources[0].userPrincipalName, InitiatedBy.user.userPrincipalName</pre>
 
 ### Monitor emergency access administrator sign-ins
 
