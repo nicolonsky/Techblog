@@ -11,9 +11,7 @@ Default Retention: https://docs.microsoft.com/en-us/azure/active-directory/repor
 
 ## Queries
 
-### Monitor CA excluded group changes </font>
-
-## Monitor CA excluded group changes
+### Monitor CA excluded group changes
 
 The following Azure AD Groups are excluded from all Conditional Access policies (Name, AAD-Object ID):
 
@@ -33,7 +31,7 @@ SigninLogs
 ### CA policy modifications
 
 <pre>
-AuditLogs 
+AuditLogs
 | where Category == "Policy"
 | project  ActivityDateTime, ActivityDisplayName , TargetResources[0].displayName, InitiatedBy.user.userPrincipalName</pre>
 
