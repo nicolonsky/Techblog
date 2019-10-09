@@ -33,8 +33,9 @@ SigninLogs
 ### CA policy modifications
 
 <pre>
-AuditLogs | where Category == "Policy"
-| summarize count(OperationName) by TimeGenerated, tostring (InitiatedBy.user.userPrincipalName), ActivityDisplayName, tostring(TargetResources[0].displayName)</pre>
+AuditLogs 
+| where Category == "Policy"
+| project  ActivityDateTime, ActivityDisplayName , TargetResources[0].displayName, InitiatedBy.user.userPrincipalName</pre>
 
 ### Intune app protection policy modifications (MAM)</font>
 
