@@ -75,7 +75,7 @@ if ($PinToStart.IsPresent -eq $true){
         $startMenuDir=$([Environment]::GetFolderPath("StartMenu"))
     }
 
-    $destinationPath = Join-Path -Path $startMenuDir -ChildPath $fullShortcutName
+    $destinationPath = Join-Path -Path $startMenuDir -ChildPath "$shortcutDisplayName.lnk"
 
     Add-Shortcut -destinationPath $destinationPath
 }
