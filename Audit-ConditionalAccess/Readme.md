@@ -1,11 +1,13 @@
 # Useful KUSTO queries to audit conditional access
 
+[A full blogpost and more details are available on my blog](https://tech.nicolonsky.ch/conditional-access-and-azure-log-analytics-in-harmony/). If you are only looking for the KUSTO queries better stay here.
+
 ## Default log retention in AAD
 
-To retain Azure Active Directory Audit Logs these are forwarded to a Log Analytics Workspace. With Log Analytics the KUSTO query language can be used to filter audit and activity logs.
+Azure Active Directory stores all activity reports depending on your license for 7  or 30 days:
 
-* Azure AD Free,  Basic: 7 days
-* Azure AD Premium P1 , P2: 30 days
+* Azure AD Free and Basic: 7 days
+* Azure AD Premium P1  and P2: 30 days
 
 Default Retention: https://docs.microsoft.com/en-us/azure/active-directory/reports-monitoring/reference-reports-data-retention#how-long-does-azure-ad-store-the-data
 
@@ -34,6 +36,16 @@ SigninLogs
 AuditLogs
 | where Category == "Policy"
 | project  ActivityDateTime, ActivityDisplayName , TargetResources[0].displayName, InitiatedBy.user.userPrincipalName</pre>
+
+### Changes on accounts
+
+Find modifications on sensitive accounts like a password reset or security info reset:
+
+<pre>
+AuditLogs
+| where OperationName == "Update user" and TargetResources[0].userPrincipalName in ("test.nicola@nicolonsky.ch")
+| project TimeGenerated, InitiatedBy.user.userPrincipalName, TargetResources[0].userPrincipalName, TargetResources[0].modifiedProperties
+</pre>
 
 ### Intune app protection policy modifications (MAM)</font>
 
