@@ -19,8 +19,10 @@ Param (
 #helper function to avoid uneccessary code
 function Add-Shortcut {
     param (
-        [Parameter(Mandatory=$true)]
-        [String] $destinationPath
+        [Parameter(Mandatory)]
+        [String]$ShortcutTargetPath,
+        [Parameter(Mandatory)]
+        [String] $DestinationPath
     )
 
     process{
@@ -43,39 +45,62 @@ function Add-Shortcut {
 }
 
 #check if running as system
+function Test-RunningAsSystem {
+    [CmdletBinding()]
+    param()
 
-if ($(whoami -user) -match "S-1-5-18"){
-
-    $runningAsSystem= $true
+    process{
+        
+        return ($(whoami -user) -match "S-1-5-18")
+    }
 }
 
-if ($runningAsSystem){
+function Get-DesktopDir {
+    [CmdletBinding()]
+    param()
 
-    $desktopDir = Join-Path -Path $env:PUBLIC -ChildPath "Desktop"
+    process{
 
-}else{
+        if (Test-RunningAsSystem){
 
-    $desktopDir=$([Environment]::GetFolderPath("Desktop"))
-
+            $desktopDir = Join-Path -Path $env:PUBLIC -ChildPath "Desktop"
+        
+        }else{
+        
+            $desktopDir=$([Environment]::GetFolderPath("Desktop"))
+        
+        }
+        return $desktopDir
+    }
 }
 
-$destinationPath= Join-Path -Path $desktopDir -ChildPath "$shortcutDisplayName.lnk"
+function Get-StartDir {
+    [CmdletBinding()]
+    param()
 
-Add-Shortcut -destinationPath $destinationPath
+    process{
+
+        if (Test-RunningAsSystem){
+
+            $startMenuDir= Join-Path $env:ALLUSERSPROFILE "Microsoft\Windows\Start Menu\Programs"
+        
+        }else{
+        
+            $startMenuDir="$([Environment]::GetFolderPath("StartMenu"))\Programs"
+        }
+        return $startMenuDir
+    }
+}
+
+#### Desktop Shortcut
+$destinationPath= Join-Path -Path $(Get-DesktopDir) -ChildPath "$shortcutDisplayName.lnk"
+
+Add-Shortcut -DestinationPath $destinationPath -ShortcutTargetPath $ShortcutTargetPath
 
 #### Start menu entry
 if ($PinToStart.IsPresent -eq $true){
 
-    if ($runningAsSystem){
+    $destinationPath = Join-Path -Path $(Get-StartDir) -ChildPath "$shortcutDisplayName.lnk"
 
-        $startMenuDir= Join-Path $env:ALLUSERSPROFILE "Microsoft\Windows\Start Menu\Programs"
-
-    }else{
-
-        $startMenuDir=$([Environment]::GetFolderPath("StartMenu"))
-    }
-
-    $destinationPath = Join-Path -Path $startMenuDir -ChildPath "$shortcutDisplayName.lnk"
-
-    Add-Shortcut -destinationPath $destinationPath
+    Add-Shortcut -DestinationPath $destinationPath -ShortcutTargetPath $ShortcutTargetPath
 }
