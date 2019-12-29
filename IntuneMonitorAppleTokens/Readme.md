@@ -7,3 +7,5 @@ This script is intended to run on Azure automation and will monitor the followin
 * APNS
 
 Notifications can be sent to a Microsoft Teams channel via incoming webhook or email.
+
+![Monitor Apple MDM token expiration for Intune](https://github.com/nicolonsky/Techblog/blob/master/IntuneMonitorAppleTokens/Img/MonitorAppleTokens.gif)
