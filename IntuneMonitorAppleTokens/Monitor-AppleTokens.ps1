@@ -1,5 +1,21 @@
+ #Requires -Module Microsoft.Graph.Intune
+
+<#PSScriptInfo
+    .GUID 6581f5b0-fbb8-45ff-8cb8-8d0a9f0f051f
+
+    .AUTHOR nicola@nicolasuter.ch, https://tech.nicolonsky.ch
+
+    .EXTERNALMODULEDEPENDENCIES  Microsoft.Graph.Intune
+
+    .DESCRIPTION 
+    This script monitors apple token expiration in MEMCM (Intune) and checks if DEP, VPP, and APNS tokens, certificates are valided after the number of specified days.
+#> 
+Param()
+
+###############################################################################################
+
 # treshold days before expiration notification is fired
-$notificationTresholdDays = 180
+$notificationTresholdDays = 21
 
 # Microsoft Teams Webhook URI
 $webHookUri = "https://outlook.office.com/webhook/7d5dcaef-5326-43a3-b83d-b601e19a5bd6@7955e1b3-cbad-49eb-9a84-e14aed7f3400/IncomingWebhook/0795975319dd4509b9c9f74a0f1de68f/36c9b091-fe88-4dc2-a9e1-2662020b4bab"
@@ -25,6 +41,8 @@ Connect-MSGraph -CertificateThumbprint $servicePrincipalConnection.CertificateTh
     $creds = Get-AutomationPSCredential -Name "appletokenservice@nicolonsky.ch"
     Connect-MSGraph -Credential $creds -Quiet
 #>
+
+###############################################################################################
 
 # Get initial domain name to display as tenant name on teams card
 $organization =  Invoke-MSGraphRequest -HttpMethod GET -Url "organization"
