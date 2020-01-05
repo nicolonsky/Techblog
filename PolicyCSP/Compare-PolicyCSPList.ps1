@@ -1,17 +1,25 @@
-$policyCSPHive= "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\"
-$csvDelimiter=","
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory)]
+    [string]
+    $ReferenceList,
+    [Parameter(Mandatory)]
+    [string]
+    $DifferenceList
+)
 
-$policyCSPListOld= Import-Csv -Path "$PSScriptRoot\CSPPolicyList_W10-16299.csv" -Delimiter $csvDelimiter
-$policyCSPListNew= Import-Csv -Path "$PSScriptRoot\CSPPolicyList_W10-17133.csv" -Delimiter $csvDelimiter
+$policyCSPHive= "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\"
+$policyCSPListOld = Import-Csv -Path $DifferenceList
+$policyCSPListNew = Import-Csv -Path $ReferenceList
 
 #compare lists
-$policyCSPComparison=Compare-Object -ReferenceObject $policyCSPListNew -DifferenceObject $policyCSPListOld -Property PSChildname -PassThru
+$policyCSPComparison = Compare-Object -ReferenceObject $policyCSPListNew -DifferenceObject $policyCSPListOld -Property PSChildname -PassThru
 
 #get new entries
-$newPolicyCSPDifference= $policyCSPComparison| Where-Object {$_.SideIndicator -eq "<="}
+$newPolicyCSPDifference = $policyCSPComparison| Where-Object {$_.SideIndicator -eq "<="}
 
 #get removed entries
-$removedPolicyCSPDifference= $policyCSPComparison | Where-Object {$_.SideIndicator -eq "=>"}
+$removedPolicyCSPDifference = $policyCSPComparison | Where-Object {$_.SideIndicator -eq "=>"}
 
 #create empty array
 $policyCSPDifferenceList=@()
@@ -33,6 +41,6 @@ $newPolicyCSPDifference | ForEach-Object {
     $policyCSPDifferenceList+= $tempObject    
 }
 
-$policyCSPDifferenceList | Export-Csv -Path "$PSScriptRoot\CSPPolicyList_New.csv" -Delimiter $csvDelimiter -NoTypeInformation
+$policyCSPDifferenceList | Export-Csv -Path "$PSScriptRoot\CSPPolicyList_Diff.csv" -NoTypeInformation
 
 
