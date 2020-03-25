@@ -23,22 +23,19 @@ function Get-BetterAzureADDirectoryRoleAssignments {
             # Add members to hashtable
             $roleMembers | ForEach-Object {
 
-                $isServicePrincipal = $false
-                $username = $null
                 # Distinguish between users and service principals
                 if ($_.ObjectType -match "ServicePrincipal"){
 
-                    $isServicePrincipal = $true
-                    $username = "$($PSItem.AppDisplayName) ($($PSItem.AppId))"
+                    $memberName = "$($PSItem.AppDisplayName) ($($PSItem.AppId))"
 
                 }else {
-                    $username = $PSItem.UserPrincipalName
+                    $memberName = $PSItem.UserPrincipalName
                 }
 
                 $roleAssignments += [PSCustomObject]@{
                     Role = $currentRoleName
-                    User = $username
-                    ServicePrincipal = $isServicePrincipal
+                    Member = $memberName
+                    ObjectType = $_.ObjectType
                 }
             }
         }
@@ -64,8 +61,7 @@ $exportPath = Join-Path $PSScriptRoot "AzureADDirectoryRoleAssignments_$(get-dat
 $roleAssignments | Export-Csv -Path $exportPath -NoTypeInformation -Delimiter ";"
 
 Write-Output "`nExported role assignments to: '$exportPath'"
-
-$roleAssignments
+Write-Output $roleAssignments
 
 <# Snippet to compare two different exports
 $firstReport = Import-Csv -Path "AzureADDirectoryRoleAssignments_2020-03-13 - Copy.csv" -Delimiter ";"
