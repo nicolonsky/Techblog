@@ -13,7 +13,10 @@ Param (
    [String]$IconFile=$null,
 
    [Parameter(Mandatory=$false)]
-   [String]$ShortcutArguments=$null
+   [String]$ShortcutArguments=$null,
+
+   [Parameter(Mandatory=$false)]
+   [String]$WorkingDirectory=$null
 )
 
 #helper function to avoid uneccessary code
@@ -22,7 +25,9 @@ function Add-Shortcut {
         [Parameter(Mandatory)]
         [String]$ShortcutTargetPath,
         [Parameter(Mandatory)]
-        [String] $DestinationPath
+        [String] $DestinationPath,
+        [Parameter()]
+        [String] $WorkingDirectory
     )
 
     process{
@@ -31,6 +36,7 @@ function Add-Shortcut {
         $Shortcut = $WshShell.CreateShortcut($destinationPath)
         $Shortcut.TargetPath = $ShortcutTargetPath
         $Shortcut.Arguments = $ShortcutArguments
+        $Shortcut.WorkingDirectory = $WorkingDirectory
     
         if ($IconFile){
     
@@ -95,7 +101,7 @@ function Get-StartDir {
 #### Desktop Shortcut
 $destinationPath= Join-Path -Path $(Get-DesktopDir) -ChildPath "$shortcutDisplayName.lnk"
 
-Add-Shortcut -DestinationPath $destinationPath -ShortcutTargetPath $ShortcutTargetPath
+Add-Shortcut -DestinationPath $destinationPath -ShortcutTargetPath $ShortcutTargetPath -WorkingDirectory $WorkingDirectory
 
 #### Start menu entry
 if ($PinToStart.IsPresent -eq $true){
