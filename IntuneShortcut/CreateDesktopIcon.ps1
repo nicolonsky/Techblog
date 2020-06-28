@@ -31,7 +31,6 @@ function Add-Shortcut {
     )
 
     process{
-
         $WshShell = New-Object -comObject WScript.Shell
         $Shortcut = $WshShell.CreateShortcut($destinationPath)
         $Shortcut.TargetPath = $ShortcutTargetPath
@@ -39,12 +38,10 @@ function Add-Shortcut {
         $Shortcut.WorkingDirectory = $WorkingDirectory
     
         if ($IconFile){
-    
             $Shortcut.IconLocation = $IconFile
         }
-    
+        # Create the shortcut
         $Shortcut.Save()
-    
         #cleanup
         [Runtime.InteropServices.Marshal]::ReleaseComObject($WshShell) | Out-Null
     }
@@ -54,9 +51,7 @@ function Add-Shortcut {
 function Test-RunningAsSystem {
     [CmdletBinding()]
     param()
-
     process{
-        
         return ($(whoami -user) -match "S-1-5-18")
     }
 }
@@ -64,17 +59,11 @@ function Test-RunningAsSystem {
 function Get-DesktopDir {
     [CmdletBinding()]
     param()
-
     process{
-
         if (Test-RunningAsSystem){
-
             $desktopDir = Join-Path -Path $env:PUBLIC -ChildPath "Desktop"
-        
         }else{
-        
             $desktopDir=$([Environment]::GetFolderPath("Desktop"))
-        
         }
         return $desktopDir
     }
@@ -83,15 +72,10 @@ function Get-DesktopDir {
 function Get-StartDir {
     [CmdletBinding()]
     param()
-
     process{
-
         if (Test-RunningAsSystem){
-
             $startMenuDir= Join-Path $env:ALLUSERSPROFILE "Microsoft\Windows\Start Menu\Programs"
-        
         }else{
-        
             $startMenuDir="$([Environment]::GetFolderPath("StartMenu"))\Programs"
         }
         return $startMenuDir
@@ -100,13 +84,10 @@ function Get-StartDir {
 
 #### Desktop Shortcut
 $destinationPath= Join-Path -Path $(Get-DesktopDir) -ChildPath "$shortcutDisplayName.lnk"
-
 Add-Shortcut -DestinationPath $destinationPath -ShortcutTargetPath $ShortcutTargetPath -WorkingDirectory $WorkingDirectory
 
 #### Start menu entry
 if ($PinToStart.IsPresent -eq $true){
-
     $destinationPath = Join-Path -Path $(Get-StartDir) -ChildPath "$shortcutDisplayName.lnk"
-
     Add-Shortcut -DestinationPath $destinationPath -ShortcutTargetPath $ShortcutTargetPath
 }
