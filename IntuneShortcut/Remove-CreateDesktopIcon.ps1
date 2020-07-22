@@ -1,2 +1,0 @@
-#uninstall string for Intune
-# powershell.exe -command "&{$name='posh.lnk'; Remove-Item -Path $(Join-Path $([Environment]::GetFolderPath('Desktop')) $name) -EA SilentlyContinue; Remove-Item -Path $(Join-Path $([Environment]::GetFolderPath('StartMenu')) $name) -EA SilentlyContinue}"
