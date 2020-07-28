@@ -1,6 +1,8 @@
 [CmdletBinding()]
 param ()
 
+Start-Transcript -Path $(Join-Path $env:TEMP "InstallFont.log")
+
 # Helper function
 function Install-Font {
     [CmdletBinding()]
@@ -52,3 +54,5 @@ $potentialFonts = Get-ChildItem -Path $(Join-Path $PSScriptRoot $fontFolderName)
 foreach ($font in $potentialFonts) {
     Install-Font -FontPath $font.FullName
 }
+
+Stop-Transcript
