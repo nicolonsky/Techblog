@@ -240,26 +240,22 @@ $authHeader = @{
 $mobileApps = Get-IntuneMobileApp -All | Select-Object '@odata.type', displayName, id | Out-GridView -PassThru -Title "Select mobileApps"
 
 foreach ($mobileApp in $mobileApps) {
+    # construct group names
+    $appName = $mobileApp.displayName.Replace(' ', '_')
+    $installGroupName = $installPattern + $appName
+    $uninstallGroupName = $uninstallPattern + $appName
 
-    # only process Win32 apps and MSI
-    if ($mobileApp.'@odata.type' -in @("#microsoft.graph.win32LobApp", "#microsoft.graph.windowsMobileMSI")) {
+    # create install group
+    $installGroup = New-SecurityGroup -DisplayName $installGroupName -Description $groupDescription
 
-        $appName = $mobileApp.displayName.Replace(' ', '_')
-        $installGroupName = $installPattern + $appName
-        $uninstallGroupName = $uninstallPattern + $appName
+    # assign to install group
+    New-IntuneMobileAppAssignment -AppID $mobileApp.id -Intent required -GroupID $installGroup.id -Verbose
 
-        # create install group
-        $installGroup = New-SecurityGroup -DisplayName $installGroupName -Description $groupDescription
+    # create uninstall group
+    $uninstallGroup = New-SecurityGroup -DisplayName $uninstallGroupName -Description $groupDescription
 
-        # assign to install group
-        $installAssignment = New-IntuneMobileAppAssignment -AppID $mobileApp.id -Intent required -GroupID $installGroup.id -Verbose
-
-        # create uninstall group
-        $uninstallGroup = New-SecurityGroup -DisplayName $uninstallGroupName -Description $groupDescription
-
-        # assign to uninstall group
-        $uninstallAssignment = New-IntuneMobileAppAssignment -AppID $mobileApp.id -Intent uninstall -GroupID $uninstallGroup.id -Verbose
-    }
+    # assign to uninstall group
+    New-IntuneMobileAppAssignment -AppID $mobileApp.id -Intent uninstall -GroupID $uninstallGroup.id -Verbose
 }
 
 # finito
