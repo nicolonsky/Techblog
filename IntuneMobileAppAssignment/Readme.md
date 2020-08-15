@@ -1,0 +1,1 @@
+PowerShell script to bulk create AAD sofware deployment groups and Intune mobile app assignments for LOB and Win32 apps.
