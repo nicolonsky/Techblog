@@ -239,7 +239,7 @@ $script:authHeader = @{
 }
 
 # select via gridView
-$mobileApps = Get-IntuneMobileApp -All | Select-Object '@odata.type', displayName, id | Out-GridView -PassThru -Title "Select mobileApps"
+$mobileApps = Get-IntuneMobileApp -All | Select-Object displayName, id, '@odata.type' | Out-GridView -PassThru -Title "Select mobileApps"
 
 foreach ($mobileApp in $mobileApps) {
     # construct group names
@@ -260,7 +260,7 @@ foreach ($mobileApp in $mobileApps) {
     New-IntuneMobileAppAssignment -AppID $mobileApp.id -Intent uninstall -GroupID $uninstallGroup.id -Verbose
 
     # available assignment
-    New-IntuneMobileAppAssignment -AppId $mobileApp.id -AllUsersAssignment -Intent available
+    # New-IntuneMobileAppAssignment -AppId $mobileApp.id -AllUsersAssignment -Intent available
 }
 
 # finito
