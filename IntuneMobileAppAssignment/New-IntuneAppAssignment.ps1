@@ -88,7 +88,7 @@ function New-IntuneMobileAppAssignment {
 
         if ($PSCmdlet.ShouldProcess($assignment['target'].'@odata.type', "Creating mobile app assignment")) {
             try {
-                $assignmentRequest = Invoke-RestMethod -Method Post -Uri $requestUrl -Body $requestBody -Headers $authHeader -EA Stop -Verbose:$false
+                $assignmentRequest = Invoke-RestMethod -Method Post -Uri $requestUrl -Body $requestBody -Headers $script:authHeader -EA Stop -Verbose:$false
                 Write-Verbose "Successfully created assignment"
                 return $assignmentRequest
             }
@@ -125,7 +125,7 @@ function New-SecurityGroup {
         # Check if group exists
         if ($PSCmdlet.ShouldProcess("$DisplayName", "Checking if group exists")) {
             $searchUri = $script:graphUrl + "/groups?`$search=`"displayName:$DisplayName`""
-            $search = Invoke-RestMethod -Method Get -Uri $searchUri -Headers $authHeader
+            $search = Invoke-RestMethod -Method Get -Uri $searchUri -Headers $script:authHeader
         }
 
         # Create the group if not already there
@@ -143,7 +143,7 @@ function New-SecurityGroup {
 
             if ($PSCmdlet.ShouldProcess($group['displayName'], "Creating AAD Group")) {
                 try {
-                    $groupRequest = Invoke-RestMethod -Method Post -Uri $requestUrl -Body $requestBody -Headers $authHeader -EA Stop -Verbose:$false
+                    $groupRequest = Invoke-RestMethod -Method Post -Uri $requestUrl -Body $requestBody -Headers $script:authHeader -EA Stop -Verbose:$false
                     return $groupRequest
                 }
                 catch {
@@ -194,13 +194,13 @@ function Get-IntuneMobileApp {
             if ($All.IsPresent) {
 
                 $requestUrl += "?`$filter=isOf('microsoft.graph.win32LobApp') or isOf('microsoft.graph.windowsMobileMSI')"
-                $mobileApps = Invoke-RestMethod -Method Get -Uri $requestUrl -Headers $authHeader -EA Stop
+                $mobileApps = Invoke-RestMethod -Method Get -Uri $requestUrl -Headers $script:authHeader -EA Stop
                 return $mobileApps.value
             }
             # only fetch specified app
             else {
                 $requestUrl += "/$AppID"
-                $mobileApp = Invoke-RestMethod -Method Get -Uri $requestUrl -Headers $authHeader
+                $mobileApp = Invoke-RestMethod -Method Get -Uri $requestUrl -Headers $script:authHeader
                 return $mobileApp
             }
         }
@@ -218,6 +218,7 @@ function Get-IntuneMobileApp {
 }
 
 # configuration for groups
+# adjust those according to your environment
 $installPattern = "gs-as-msi-app-sd-"
 $uninstallPattern = "gs-as-msi-app-sr-"
 $groupDescription = "Automatically generated software deployment group"
@@ -226,10 +227,11 @@ $groupDescription = "Automatically generated software deployment group"
 $script:graphUrl = "https://graph.microsoft.com/beta"
 
 # Get token for graph from MSAL
+# Switch to device code flow if on PowerShell 7
 $accessToken = Get-MsalToken -ClientId d1ddf0e4-d672-4dae-b554-9d5bdfd93547 -RedirectUri "urn:ietf:wg:oauth:2.0:oob" -Interactive
 
 # Build authentication header for API requests
-$authHeader = @{
+$script:authHeader = @{
     'Content-Type'     = 'application/json'
     'Authorization'    = $accessToken.CreateAuthorizationHeader()
     'ExpiresOn'        = $accessToken.ExpiresOn.LocalDateTime
@@ -256,6 +258,9 @@ foreach ($mobileApp in $mobileApps) {
 
     # assign to uninstall group
     New-IntuneMobileAppAssignment -AppID $mobileApp.id -Intent uninstall -GroupID $uninstallGroup.id -Verbose
+
+    # available assignment
+    New-IntuneMobileAppAssignment -AppId $mobileApp.id -AllUsersAssignment -Intent available
 }
 
 # finito
