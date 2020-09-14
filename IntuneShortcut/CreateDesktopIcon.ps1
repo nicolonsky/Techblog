@@ -89,5 +89,5 @@ Add-Shortcut -DestinationPath $destinationPath -ShortcutTargetPath $ShortcutTarg
 #### Start menu entry
 if ($PinToStart.IsPresent -eq $true){
     $destinationPath = Join-Path -Path $(Get-StartDir) -ChildPath "$shortcutDisplayName.lnk"
-    Add-Shortcut -DestinationPath $destinationPath -ShortcutTargetPath $ShortcutTargetPath
+    Add-Shortcut -DestinationPath $destinationPath -ShortcutTargetPath $ShortcutTargetPath -WorkingDirectory $WorkingDirectory
 }
