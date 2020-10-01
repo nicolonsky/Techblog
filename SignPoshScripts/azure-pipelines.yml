@@ -1,0 +1,93 @@
+# Azure DevOps pipeline to sign PowerShell scripts
+
+trigger:
+- master
+
+variables:
+ - group: CodeSigning
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+# - task: DownloadSecureFile@1
+#   name: "RootCA"
+#   inputs:
+#     secureFile: 'RootCA'
+
+# - task: DownloadSecureFile@1
+#   name: "IntermediateCA"
+#   inputs:
+#     secureFile: 'IntermediateCA'
+# - task: PowerShell@2
+#   displayName: "Import root CA"
+#   inputs:
+#     targetType: 'inline'
+#     script: 'Import-Certificate -FilePath "$env:RootCA_SECUREFILEPATH" -CertStoreLocation Cert:\LocalMachine\Root'
+
+# - task: PowerShell@2
+#   displayName: "Import intermediate CA"
+#   inputs:
+#     targetType: 'inline'
+#     script: 'Import-Certificate -FilePath "$env:IntermediateCA_SECUREFILEPATH" -CertStoreLocation Cert:\LocalMachine\CA\'
+
+- task: PowerShell@2
+  displayName: "Import code signing cert to agent"
+  inputs:
+    targetType: 'inline'
+    script: |
+      $secretBytes = [System.Convert]::FromBase64String("$(CodeSigning)")
+      # Build pfx
+      $pfxcert = New-Object -TypeName System.Security.Cryptography.X509Certificates.X509Certificate2
+      $keyStoreFlags = [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::Exportable `
+          -bxor [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::MachineKeySet `
+          -bxor [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::PersistKeySet;
+      $pfxcert.Import($secretBytes, $null, $keyStoreFlags);
+
+      # import to personal store
+      $store = New-Object -TypeName System.Security.Cryptography.X509Certificates.X509Store -ArgumentList @("My", "CurrentUser")
+      $store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]::ReadWrite);
+      $store.Add($pfxcert);
+      $store.Close();
+- task: PowerShell@2
+  displayName: "Sign PowerShell scripts"
+  inputs:
+    targetType: 'inline'
+    script: |
+      $magicToken = "#PerformScriptSigning"
+      $encoding = "UTF8"
+      $scriptFolder = "."
+      $scripts = Get-ChildItem -Path $scriptFolder -Filter "*.ps1" -Recurse -ErrorAction Stop
+
+      foreach ($script in $scripts) {
+          try {
+              $content = Get-Content -Path $script.FullName -Encoding $encoding
+
+              if ($content.Contains($magicToken)) {
+
+                  $content = $content.Replace($magicToken, "")
+
+                  Set-Content -Value $content -Path $script.FullName -Encoding $encoding -Force
+
+                  # load cert
+                  $codeSigningCert = Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert | Select-Object -First 1
+
+                  Write-Output "Signing script `"$($script.Name)`" with certificate `"$($codeSigningCert.Thumbprint)`""
+
+                  # sign script
+                  $null = Set-AuthenticodeSignature -Certificate $codeSigningCert -FilePath $script.FullName
+
+                  # copy to artifact staging location
+                  $null = Copy-Item -Path $script.FullName -Destination $env:Build_ArtifactStagingDirectory
+              }
+          }
+          catch {
+              Write-Error $_
+          }
+      }
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'SignedScripts'
+    publishLocation: 'Container'

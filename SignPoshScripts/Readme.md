@@ -1,0 +1,1 @@
+Example pipeline configuration to sign PowerShell scripts with an Azure DevOps pipeline.
