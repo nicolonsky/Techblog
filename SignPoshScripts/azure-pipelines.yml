@@ -69,7 +69,7 @@ steps:
                   $codeSigningCert = Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert | Select-Object -First 1
                   Write-Output "Signing script `"$($script.Name)`" with certificate `"$($codeSigningCert.Thumbprint)`""
                   # sign script
-                  $null = Set-AuthenticodeSignature -Certificate $codeSigningCert -FilePath $script.FullName
+                  $null = Set-AuthenticodeSignature -Certificate $codeSigningCert -FilePath $script.FullName -TimestampServer "http://timestamp.comodoca.com/rfc3161"
                   # copy to artifact staging location
                   $null = Copy-Item -Path $script.FullName -Destination $env:Build_ArtifactStagingDirectory
               }
