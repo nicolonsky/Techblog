@@ -41,14 +41,13 @@ steps:
       $pfxcert = New-Object -TypeName System.Security.Cryptography.X509Certificates.X509Certificate2
       $keyStoreFlags = [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::Exportable `
           -bxor [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::MachineKeySet `
-          -bxor [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::PersistKeySet;
-      $pfxcert.Import($secretBytes, $null, $keyStoreFlags);
-
+          -bxor [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::PersistKeySet
+      $pfxcert.Import($secretBytes, $null, $keyStoreFlags)
       # import to personal store
       $store = New-Object -TypeName System.Security.Cryptography.X509Certificates.X509Store -ArgumentList @("My", "CurrentUser")
-      $store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]::ReadWrite);
-      $store.Add($pfxcert);
-      $store.Close();
+      $store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]::ReadWrite)
+      $store.Add($pfxcert)
+      $store.Close()
 - task: PowerShell@2
   displayName: "Sign PowerShell scripts"
   inputs:
@@ -64,19 +63,13 @@ steps:
               $content = Get-Content -Path $script.FullName -Encoding $encoding
 
               if ($content.Contains($magicToken)) {
-
                   $content = $content.Replace($magicToken, "")
-
                   Set-Content -Value $content -Path $script.FullName -Encoding $encoding -Force
-
                   # load cert
                   $codeSigningCert = Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert | Select-Object -First 1
-
                   Write-Output "Signing script `"$($script.Name)`" with certificate `"$($codeSigningCert.Thumbprint)`""
-
                   # sign script
                   $null = Set-AuthenticodeSignature -Certificate $codeSigningCert -FilePath $script.FullName
-
                   # copy to artifact staging location
                   $null = Copy-Item -Path $script.FullName -Destination $env:Build_ArtifactStagingDirectory
               }
