@@ -63,7 +63,7 @@ steps:
               $content = Get-Content -Path $script.FullName -Encoding $encoding
 
               if ($content.Contains($magicToken)) {
-                  $content = $content.Replace($magicToken, "")
+                  $content = $content | Where-Object {$_ -notmatch $magicToken}
                   Set-Content -Value $content -Path $script.FullName -Encoding $encoding -Force
                   # load cert
                   $codeSigningCert = Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert | Select-Object -First 1
