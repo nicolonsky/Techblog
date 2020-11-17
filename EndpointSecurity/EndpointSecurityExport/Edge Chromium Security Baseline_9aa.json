@@ -1,0 +1,105 @@
+{
+  "templateId": "61f4fde8-a59b-41e4-b43b-30bd302ed47b",
+  "displayName": "Edge Chromium Security Baseline",
+  "description": null,
+  "settingsDelta": [
+    {
+      "@odata.type": "#microsoft.graph.deviceManagementStringSettingInstance",
+      "id": "79a270ca-328e-4fe5-8a02-021ec4073055",
+      "definitionId": "admx--microsoftedge_SitePerProcess",
+      "valueJson": "\"enabled\"",
+      "value": "enabled"
+    },
+    {
+      "@odata.type": "#microsoft.graph.deviceManagementStringSettingInstance",
+      "id": "c0f96f6f-fa28-498c-befc-023178965dbf",
+      "definitionId": "admx--microsoftedge_SSLVersionMin",
+      "valueJson": "\"enabled\"",
+      "value": "enabled"
+    },
+    {
+      "@odata.type": "#microsoft.graph.deviceManagementStringSettingInstance",
+      "id": "226dc92f-4e88-41dd-8371-0d135a2fb854",
+      "definitionId": "admx--microsoftedgeDefaultPluginsSetting_DefaultPluginsSetting",
+      "valueJson": "\"2\"",
+      "value": "2"
+    },
+    {
+      "@odata.type": "#microsoft.graph.deviceManagementStringSettingInstance",
+      "id": "644e9552-0e0f-4d17-8827-241032ba1e15",
+      "definitionId": "admx--microsoftedge_PreventSmartScreenPromptOverrideForFiles",
+      "valueJson": "\"notConfigured\"",
+      "value": "notConfigured"
+    },
+    {
+      "@odata.type": "#microsoft.graph.deviceManagementStringSettingInstance",
+      "id": "c591c1cd-0d11-4e91-9e83-3116a73eda0c",
+      "definitionId": "admx--microsoftedgev80diff_SmartScreenPuaEnabled",
+      "valueJson": "\"enabled\"",
+      "value": "enabled"
+    },
+    {
+      "@odata.type": "#microsoft.graph.deviceManagementStringSettingInstance",
+      "id": "a6acef01-1a8a-49fd-8bc1-3ebada7aff35",
+      "definitionId": "admx--microsoftedge_SSLErrorOverrideAllowed",
+      "valueJson": "\"notConfigured\"",
+      "value": "notConfigured"
+    },
+    {
+      "@odata.type": "#microsoft.graph.deviceManagementStringSettingInstance",
+      "id": "292bc0a8-575c-4475-94dc-55c8894a650e",
+      "definitionId": "admx--microsoftedgeSSLVersionMin_SSLVersionMin",
+      "valueJson": "\"tls1.2\"",
+      "value": "tls1.2"
+    },
+    {
+      "@odata.type": "#microsoft.graph.deviceManagementStringSettingInstance",
+      "id": "19f8c816-515b-46d1-837f-5c95c2124ae0",
+      "definitionId": "admx--microsoftedge_DefaultPluginsSetting",
+      "valueJson": "\"enabled\"",
+      "value": "enabled"
+    },
+    {
+      "@odata.type": "#microsoft.graph.deviceManagementStringSettingInstance",
+      "id": "bc322bc2-71d3-40a3-a954-5e82fa1d10f4",
+      "definitionId": "admx--microsoftedge_NativeMessagingUserLevelHosts",
+      "valueJson": "\"disabled\"",
+      "value": "disabled"
+    },
+    {
+      "@odata.type": "#microsoft.graph.deviceManagementStringSettingInstance",
+      "id": "1013c97a-4bd9-4dd7-b272-9c9612fd688f",
+      "definitionId": "admx--microsoftedge_AuthSchemes",
+      "valueJson": "\"enabled\"",
+      "value": "enabled"
+    },
+    {
+      "@odata.type": "#microsoft.graph.deviceManagementStringSettingInstance",
+      "id": "a129eb20-4eae-4c85-96ce-9cfcde917c53",
+      "definitionId": "admx--microsoftedge_ExtensionInstallBlocklist",
+      "valueJson": "\"disabled\"",
+      "value": "disabled"
+    },
+    {
+      "@odata.type": "#microsoft.graph.deviceManagementStringSettingInstance",
+      "id": "ad2c16b1-35f9-4dd3-89dc-bf7b66479d5c",
+      "definitionId": "admx--microsoftedge_PreventSmartScreenPromptOverride",
+      "valueJson": "\"notConfigured\"",
+      "value": "notConfigured"
+    },
+    {
+      "@odata.type": "#microsoft.graph.deviceManagementStringSettingInstance",
+      "id": "eff54525-c2ad-4880-add9-c5871ae3db4b",
+      "definitionId": "admx--microsoftedge_PasswordManagerEnabled",
+      "valueJson": "\"disabled\"",
+      "value": "disabled"
+    },
+    {
+      "@odata.type": "#microsoft.graph.deviceManagementStringSettingInstance",
+      "id": "6dda345c-eb29-407c-9400-fc7a91b35f4d",
+      "definitionId": "admx--microsoftedge_SmartScreenEnabled",
+      "valueJson": "\"enabled\"",
+      "value": "enabled"
+    }
+  ]
+}
