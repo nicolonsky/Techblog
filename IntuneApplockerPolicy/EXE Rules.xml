@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleCollection Type="Exe" EnforcementMode="Enabled">
+  <FilePublisherRule Id="5bfd1be0-d01e-4dc5-aae1-4ca3b005bc55" Name="TEAMVIEWER" Description="" UserOrGroupSid="S-1-1-0" Action="Allow">
+    <Conditions>
+      <FilePublisherCondition PublisherName="O=TEAMVIEWER GMBH, L=GÖPPINGEN, S=BADEN-WÜRTTEMBERG, C=DE" ProductName="*" BinaryName="*">
+        <BinaryVersionRange LowSection="*" HighSection="*" />
+      </FilePublisherCondition>
+    </Conditions>
+  </FilePublisherRule>
+  <FilePublisherRule Id="97dca70c-9a0a-4c25-9555-7e7a68292688" Name="DeepL" Description="" UserOrGroupSid="S-1-1-0" Action="Allow">
+    <Conditions>
+      <FilePublisherCondition PublisherName="O=DEEPL  GMBH, L=KÖLN, S=NORDRHEIN-WESTFALEN, C=DE" ProductName="*" BinaryName="*">
+        <BinaryVersionRange LowSection="*" HighSection="*" />
+      </FilePublisherCondition>
+    </Conditions>
+  </FilePublisherRule>
+  <FilePathRule Id="921cc481-6e17-4653-8f75-050b80acca20" Name="(Default Rule) All files located in the Program Files folder" Description="Allows members of the Everyone group to run applications that are located in the Program Files folder." UserOrGroupSid="S-1-1-0" Action="Allow">
+    <Conditions>
+      <FilePathCondition Path="%PROGRAMFILES%\*" />
+    </Conditions>
+  </FilePathRule>
+  <FilePathRule Id="a61c8b2c-a319-4cd0-9690-d2177cad7b51" Name="(Default Rule) All files located in the Windows folder" Description="Allows members of the Everyone group to run applications that are located in the Windows folder." UserOrGroupSid="S-1-1-0" Action="Allow">
+    <Conditions>
+      <FilePathCondition Path="%WINDIR%\*" />
+    </Conditions>
+  </FilePathRule>
+  <FilePathRule Id="fd686d83-a829-4351-8ff4-27c7de5755d2" Name="(Default Rule) All files" Description="Allows members of the local Administrators group to run all applications." UserOrGroupSid="S-1-5-32-544" Action="Allow">
+    <Conditions>
+      <FilePathCondition Path="*" />
+    </Conditions>
+  </FilePathRule>
+</RuleCollection>
