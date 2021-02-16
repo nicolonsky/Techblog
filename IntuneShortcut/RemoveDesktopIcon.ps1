@@ -43,4 +43,4 @@ function Get-StartDir {
 Remove-Item -Path $(Join-Path $(Get-DesktopDir) "$ShortcutDisplayName.lnk") -EA SilentlyContinue; 
 
 # Remove icon from start
-Remove-Item -Path $(Join-Path $(Get-StartDir) $"$ShortcutDisplayName.lnk") -EA SilentlyContinue
+Remove-Item -Path $(Join-Path $(Get-StartDir) "$ShortcutDisplayName.lnk") -EA SilentlyContinue
