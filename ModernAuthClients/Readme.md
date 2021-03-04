@@ -15,6 +15,8 @@ If you block "Exchange ActiveSync clients" & "Other clients" with conditional ac
 
 ## macOS
 
+* Microsoft 365 Apps for Business (Outlook 2016 and newer)
+
 ## iOS
 
 * native iOS mail
