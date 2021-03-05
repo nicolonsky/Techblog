@@ -13,6 +13,7 @@ If you block "Exchange ActiveSync clients" & "Other clients" with conditional ac
 
 * Microsoft 365 Apps for Business (Outlook 2013 and newer)
 * Windows 10 mail app
+* thunderbird
 
 ### macOS
 
@@ -47,5 +48,8 @@ If you block "Exchange ActiveSync clients" & "Other clients" with conditional ac
 | ----|-------|-------------|
 | ![iOS](https://user-images.githubusercontent.com/32899754/110011133-5fd22d80-7d1f-11eb-8302-f460f8822b76.png) | ![Gmail](https://user-images.githubusercontent.com/32899754/110011124-5ea10080-7d1f-11eb-8772-05fc09696e91.png) | ![thunderbird](https://user-images.githubusercontent.com/32899754/110011135-5fd22d80-7d1f-11eb-8d62-e6034ee21d49.png) |
 
-* For thunderbird you need to explicitely select the OAuth option hidden under the "configure manually" option
-  * ![image](https://user-images.githubusercontent.com/32899754/110013256-bccee300-7d21-11eb-9b03-7ddf1ab0871a.png)
+* For thunderbird you need to explicitely select the OAuth option hidden under the "configure manually" option, if you don't see OAuth within the selection you might need to hit the **re-test** button to refresh the selection
+
+| Incoming Mail Settings | Outgoing Mail Settings | Image |
+|----------|-------|------------|
+| <ul><li>Protocol: IMAP</li><li>Server: outlook.office365.com</li><li>Port: 933</li><li>SSL: SSL/TLS</li><li>Authentication: OAuth</li></ul> | <ul><li>Protocol: SMTP</li><li>Server: smtp.office365.com</li><li>Port: 587</li><li>SSL: STARTTLS</li><li>Authentication: OAuth</li></ul> | ![image](https://user-images.githubusercontent.com/32899754/110013256-bccee300-7d21-11eb-9b03-7ddf1ab0871a.png) |
