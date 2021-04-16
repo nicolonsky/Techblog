@@ -28,6 +28,8 @@ function Get-BetterAzureADDirectoryRoleAssignments {
 
                     $memberName = "$($PSItem.AppDisplayName) ($($PSItem.AppId))"
 
+                }elseif ($_.ObjectType -match "Group") {
+                        $memberName = "$($PSItem.DisplayName)"
                 }else {
                     $memberName = $PSItem.UserPrincipalName
                 }
