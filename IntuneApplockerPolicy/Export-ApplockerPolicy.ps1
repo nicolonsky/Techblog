@@ -36,9 +36,13 @@ $configurationProfile = Invoke-RestMethod -Method Get -Uri $requestUrl -Headers 
 foreach ($setting in $configurationProfile.omaSettings) {
     Write-Output "Processing entry: `"$($setting.displayName)`" ($($setting.omaUri))"
     try {
-        [xml]$base64XmlContent = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($setting.value))
-
-        #
+    
+        # decrypt encrypted settings value
+        $requestUrl = $graphUrl + "/deviceConfigurations/$ProfileId/getOmaSettingPlainTextValue(secretReferenceValueId='$($setting.secretReferenceValueId)')"
+        $decryptedSetting = Invoke-RestMethod -Method Get -Uri $requestUrl -Headers $script:authHeader 
+        
+        # load xml from base 64 encoded string
+        [xml]$base64XmlContent = $decryptedSetting.value
         [System.Xml.XmlWriterSettings] $xmlSettings = New-Object System.Xml.XmlWriterSettings
 
         # Preserve Windows formating
