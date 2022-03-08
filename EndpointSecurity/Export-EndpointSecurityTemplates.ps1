@@ -65,7 +65,7 @@ function Export-EndpointSecurityConfiguration {
                 "templateId"    = $template.templateId
                 "displayName"   = $template.displayName
                 "description"   = $template.description
-                "settingsDelta" = @($config.value | Where-Object { $null -ne $_.value })
+                "settingsDelta" = @($config.value)
             }
 
             return $output | ConvertTo-Json -Depth 5
