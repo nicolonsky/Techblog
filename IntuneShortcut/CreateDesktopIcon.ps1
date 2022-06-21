@@ -32,7 +32,9 @@ function Add-Shortcut {
 		[Parameter(Mandatory)]
         [String]$DestinationName,
         [Parameter()]
-        [String] $WorkingDirectory
+        [String] $WorkingDirectory,
+		[Parameter()]
+        [String] $IconFilePath
     )
 
     process{
@@ -47,7 +49,7 @@ function Add-Shortcut {
         $Shortcut.WorkingDirectory = $WorkingDirectory
     
         if ($IconFile){
-            $Shortcut.IconLocation = $IconFile
+            $Shortcut.IconLocation = $IconFilePath
         }
         # Create the shortcut
         $Shortcut.Save()
@@ -113,9 +115,11 @@ function Copy-IconToLocalPC {
 
 #### Desktop Shortcut
 if($IconFileIsIncluded){
-	$IconFile = Copy-IconToLocalPC -IconFileName $IconFile
+	$IconFilePath = Copy-IconToLocalPC -IconFileName $IconFile
+} else{
+	$IconFilePath = $IconFile
 }
-Add-Shortcut -DestinationPath $(Get-DesktopDir) -DestinationName $shortcutDisplayName -ShortcutTargetPath $ShortcutTargetPath -WorkingDirectory $WorkingDirectory
+Add-Shortcut -DestinationPath $(Get-DesktopDir) -DestinationName $shortcutDisplayName -ShortcutTargetPath $ShortcutTargetPath -WorkingDirectory $WorkingDirectory -IconFilePath $IconFilePath
 
 #### Start menu entry
 if ($PinToStart.IsPresent -eq $true){
