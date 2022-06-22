@@ -54,7 +54,7 @@ function Add-Shortcut {
         # Create the shortcut
         $Shortcut.Save()
 		# rename shortcut - WScript can only handle ANSI. This allows unicode:
-		Move-Item -Path $tempDestinationPath -Destination $finalDestinationPath 
+		Move-Item -Path $tempDestinationPath -Destination $finalDestinationPath -Force
         #cleanup
         [Runtime.InteropServices.Marshal]::ReleaseComObject($WshShell) | Out-Null
     }
@@ -114,6 +114,7 @@ function Copy-IconToLocalPC {
 }
 
 #### Desktop Shortcut
+# check if we need to copy the icon file locally
 if($IconFileIsIncluded){
 	$IconFilePath = Copy-IconToLocalPC -IconFileName $IconFile
 } else{
