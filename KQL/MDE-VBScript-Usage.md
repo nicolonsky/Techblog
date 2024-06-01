@@ -4,9 +4,21 @@ KQL Query to identify usage of VBScript engine and artefacts in your environment
 
 ## Query
 
+### Sentinel
 ```kusto
 union DeviceProcessEvents, DeviceNetworkEvents , DeviceEvents
 | where TimeGenerated > ago(30d)
+| where ProcessCommandLine has_any ("wscript.exe", "Wscript.Shell", "WScript.CreateObject", "cscript.exe")
+| extend CommandLine =  parse_command_line(ProcessCommandLine, "windows")
+| mv-expand CommandLine
+| where CommandLine has ".vbs"
+| summarize Count = count() by tostring(CommandLine)
+```
+
+### Defender XDR
+```kusto
+union DeviceProcessEvents, DeviceNetworkEvents , DeviceEvents
+| where Timestamp > ago(30d)
 | where ProcessCommandLine has_any ("wscript.exe", "Wscript.Shell", "WScript.CreateObject", "cscript.exe")
 | extend CommandLine =  parse_command_line(ProcessCommandLine, "windows")
 | mv-expand CommandLine
