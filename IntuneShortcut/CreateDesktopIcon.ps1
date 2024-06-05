@@ -11,6 +11,9 @@ Param (
 
    [Parameter(Mandatory=$false)]
    [String]$IconFile=$null,
+   
+   [Parameter(Mandatory=$false)]
+   [Switch]$IconFileIsIncluded=$false,
 
    [Parameter(Mandatory=$false)]
    [String]$ShortcutArguments=$null,
@@ -26,22 +29,32 @@ function Add-Shortcut {
         [String]$ShortcutTargetPath,
         [Parameter(Mandatory)]
         [String] $DestinationPath,
+		[Parameter(Mandatory)]
+        [String]$DestinationName,
         [Parameter()]
-        [String] $WorkingDirectory
+        [String] $WorkingDirectory,
+		[Parameter()]
+        [String] $IconFilePath
     )
 
     process{
+		# due to WScript supporting only ANSI had to pull a rename here
+		$tempDestinationPath = Join-Path -Path $DestinationPath -ChildPath "updatingshortcut.lnk"
+		$finalDestinationPath = Join-Path -Path $DestinationPath -ChildPath "$DestinationName.lnk"
+		
         $WshShell = New-Object -comObject WScript.Shell
-        $Shortcut = $WshShell.CreateShortcut($destinationPath)
+        $Shortcut = $WshShell.CreateShortcut($tempDestinationPath)
         $Shortcut.TargetPath = $ShortcutTargetPath
         $Shortcut.Arguments = $ShortcutArguments
         $Shortcut.WorkingDirectory = $WorkingDirectory
     
         if ($IconFile){
-            $Shortcut.IconLocation = $IconFile
+            $Shortcut.IconLocation = $IconFilePath
         }
         # Create the shortcut
         $Shortcut.Save()
+		# rename shortcut - WScript can only handle ANSI. This allows unicode:
+		Move-Item -Path $tempDestinationPath -Destination $finalDestinationPath -Force
         #cleanup
         [Runtime.InteropServices.Marshal]::ReleaseComObject($WshShell) | Out-Null
     }
@@ -82,9 +95,32 @@ function Get-StartDir {
     }
 }
 
+function Copy-IconToLocalPC {
+	param (
+        [Parameter(Mandatory)]
+        [String]$IconFileName
+    )
+	process{
+		# create a directory to store the icon if it does not exist
+		if (-not (Test-Path "C:\ProgramData\AutoPilotConfig\")){
+			New-Item -Path "C:\ProgramData\AutoPilotConfig\" -ItemType Directory
+		}
+		# copy the icon file if it does not exist
+		if (-not (Test-Path "C:\ProgramData\AutoPilotConfig\$IconFileName")){
+			Copy-Item -Path "$IconFileName" -Destination "C:\ProgramData\AutoPilotConfig"
+		}
+		return "C:\ProgramData\AutoPilotConfig\$IconFileName"
+	}
+}
+
 #### Desktop Shortcut
-$destinationPath= Join-Path -Path $(Get-DesktopDir) -ChildPath "$shortcutDisplayName.lnk"
-Add-Shortcut -DestinationPath $destinationPath -ShortcutTargetPath $ShortcutTargetPath -WorkingDirectory $WorkingDirectory
+# check if we need to copy the icon file locally
+if($IconFileIsIncluded){
+	$IconFilePath = Copy-IconToLocalPC -IconFileName $IconFile
+} else{
+	$IconFilePath = $IconFile
+}
+Add-Shortcut -DestinationPath $(Get-DesktopDir) -DestinationName $shortcutDisplayName -ShortcutTargetPath $ShortcutTargetPath -WorkingDirectory $WorkingDirectory -IconFilePath $IconFilePath
 
 #### Start menu entry
 if ($PinToStart.IsPresent -eq $true){
