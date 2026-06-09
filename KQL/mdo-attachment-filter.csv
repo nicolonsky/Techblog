@@ -1,0 +1,219 @@
+extension,mime_type,source_list,description
+ace,application/x-ace-compressed,default,ACE archive (legacy compression format; historically exploited)
+ani,application/x-navi-animation,default,Windows animated cursor
+apk,application/vnd.android.package-archive,default,Android application package
+app,application/octet-stream,default,macOS application bundle / generic application
+appx,application/vnd.ms-appx,default,Windows 8/10 app package
+arj,application/x-arj,default,ARJ compressed archive
+bat,application/x-bat,default,Windows batch script
+cab,application/vnd.ms-cab-compressed,default,Microsoft Cabinet archive
+cmd,application/x-bat,default,Windows command script
+com,application/x-msdownload,default,MS-DOS executable
+deb,application/vnd.debian.binary-package,default,Debian/Ubuntu package
+dex,application/octet-stream,default,Android Dalvik executable
+dll,application/x-msdownload,default,Windows dynamic-link library
+docm,application/vnd.ms-word.document.macroEnabled.12,default,Word document with macros
+elf,application/x-elf,default,Linux/Unix ELF executable
+exe,application/x-msdownload,default,Windows PE executable
+hta,application/hta,default,HTML application (runs via mshta.exe)
+img,application/octet-stream,default,Disk image (raw / floppy / ISO-like)
+iso,application/x-iso9660-image,default,ISO 9660 optical disc image
+jar,application/java-archive,default,Java archive (executable classes)
+jnlp,application/x-java-jnlp-file,default,Java Web Start launcher
+kext,application/octet-stream,default,macOS kernel extension bundle
+lha,application/x-lzh,default,LHA / LArc archive
+lib,application/octet-stream,default,Static library (Windows .lib / Unix .a)
+library,application/octet-stream,default,macOS dylib or Windows Library shortcut (.library-ms)
+lnk,application/x-ms-shortcut,default,Windows shell shortcut
+lzh,application/x-lzh,default,LZH compressed archive
+macho,application/x-mach-binary,default,macOS Mach-O binary
+msc,application/x-msc,default,Microsoft Management Console snap-in
+msi,application/x-msi,default,Windows Installer package
+msix,application/vnd.ms-msix,default,Modern Windows app installer package
+msp,application/octet-stream,default,Windows Installer patch
+mst,application/octet-stream,default,Windows Installer transform
+pif,application/x-msdownload,default,Program Information File (MS-DOS shortcut; executes payload)
+ppa,application/vnd.ms-powerpoint,default,PowerPoint add-in (legacy)
+ppam,application/vnd.ms-powerpoint.addin.macroEnabled.12,default,PowerPoint add-in with macros
+reg,application/x-registry,default,Windows Registry file
+rev,application/octet-stream,default,RAR recovery volume
+scf,application/octet-stream,default,Windows Explorer command file (can pull SMB hash)
+scr,application/x-msdownload,default,Windows screensaver (PE executable)
+sct,text/scriptlet,default,Windows scriptlet (COM scriptlet)
+sys,application/octet-stream,default,Windows system file / driver
+uif,application/octet-stream,default,Universal Image Format disc image (MagicISO)
+vb,text/vbscript,default,Visual Basic source script
+vbe,text/vbscript,default,Encoded VBScript
+vbs,text/vbscript,default,VBScript
+vxd,application/octet-stream,default,Windows 9x virtual device driver
+wsc,text/scriptlet,default,Windows Script Component
+wsf,text/vbscript,default,Windows Script File
+wsh,application/x-ms-wsh,default,Windows Script Host settings
+xll,application/vnd.ms-excel,default,Excel add-in DLL
+xz,application/x-xz,default,XZ compressed file
+z,application/x-compress,default,Unix compress (.Z) archive
+7z,application/x-7z-compressed,additional,7-Zip archive
+7zip,application/x-7z-compressed,additional,7-Zip archive (alternate extension)
+accdb,application/vnd.ms-access,additional,Access 2007+ database
+accde,application/vnd.ms-access,additional,Access execute-only database
+action,application/octet-stream,additional,macOS Automator action
+ade,application/vnd.ms-access,additional,Access project extension
+adp,application/vnd.ms-access,additional,Access project
+appxbundle,application/vnd.ms-appx,additional,Windows app package bundle
+asf,video/x-ms-asf,additional,Advanced Systems Format media
+asp,application/x-asp,additional,Classic ASP web script
+aspx,application/x-aspx,additional,ASP.NET web page
+avi,video/x-msvideo,additional,AVI video container
+bas,text/plain,additional,BASIC source / VBA module
+bin,application/octet-stream,additional,Generic binary
+bundle,application/octet-stream,additional,macOS / Node native plugin bundle
+bz,application/x-bzip,additional,Bzip-compressed file
+bz2,application/x-bzip2,additional,Bzip2-compressed file
+bzip2,application/x-bzip2,additional,Bzip2-compressed file (alternate extension)
+caction,application/octet-stream,additional,macOS compiled Automator action
+cer,application/pkix-cert,additional,X.509 certificate
+chm,application/vnd.ms-htmlhelp,additional,Compiled HTML Help (legacy phishing vector)
+command,application/x-sh,additional,macOS Terminal command script
+cpl,application/x-msdownload,additional,Windows Control Panel applet (PE executable)
+crt,application/x-x509-ca-cert,additional,X.509 certificate
+csh,application/x-csh,additional,C-shell script
+css,text/css,additional,Cascading Style Sheet
+der,application/x-x509-ca-cert,additional,DER-encoded X.509 certificate
+dgz,application/octet-stream,additional,Compressed disk image (non-standard)
+dmg,application/x-apple-diskimage,additional,macOS disk image
+doc,application/msword,additional,Word 97-2003 document
+docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,additional,Word document (OOXML)
+dos,application/octet-stream,additional,MS-DOS executable / generic DOS file
+dot,application/msword,additional,Word 97-2003 template
+dotm,application/vnd.ms-word.template.macroEnabled.12,additional,Word template with macros
+dtox,application/octet-stream,additional,Non-standard / vendor-specific extension
+dylib,application/x-mach-binary,additional,macOS dynamic library
+font,application/octet-stream,additional,Generic font file
+fxp,application/vnd.ms-foxpro,additional,Compiled FoxPro program
+gadget,application/x-windows-gadget,additional,Windows Sidebar gadget (legacy)
+gz,application/gzip,additional,Gzip-compressed file
+gzip,application/gzip,additional,Gzip-compressed file (alternate extension)
+hlp,application/winhlp,additional,Windows Help file (legacy)
+Hta,application/hta,additional,HTML Application (duplicate of default 'hta'; case variant)
+htm,text/html,additional,HTML document
+html,text/html,additional,HTML document
+imp,application/octet-stream,additional,Lotus Improv / generic import file
+inf,application/inf,additional,Setup Information file
+ins,application/x-internet-signup,additional,Internet Communication Settings
+ipa,application/octet-stream,additional,iOS application archive
+isp,application/x-internet-signup,additional,Internet Communication Settings
+its,application/octet-stream,additional,Internet Document Set / IPSec policy
+js,application/javascript,additional,JavaScript source
+jse,application/octet-stream,additional,Encoded JScript
+ksh,application/x-ksh,additional,Korn shell script
+Lnk,application/x-ms-shortcut,additional,Windows shortcut (duplicate of default 'lnk'; case variant)
+lqy,application/octet-stream,additional,Non-standard; possibly Lotus query
+mad,application/x-msaccess,additional,Access module shortcut
+maf,application/x-msaccess,additional,Access form shortcut
+mag,application/x-msaccess,additional,Access diagram shortcut
+mam,application/x-msaccess,additional,Access macro shortcut
+maq,application/x-msaccess,additional,Access query shortcut
+mar,application/x-msaccess,additional,Access report shortcut
+mas,application/x-msaccess,additional,Access stored procedure
+mat,application/x-msaccess,additional,Access table shortcut
+mau,application/x-msaccess,additional,Microsoft Office Mau (medium auto-update)
+mav,application/x-msaccess,additional,Access view shortcut
+maw,application/x-msaccess,additional,Access data access page shortcut
+mda,application/x-msaccess,additional,Access add-in
+mdb,application/x-msaccess,additional,Access 97-2003 database
+mde,application/x-msaccess,additional,Access compiled database (execute only)
+mdt,application/x-msaccess,additional,Access add-in data
+mdw,application/x-msaccess,additional,Access workgroup information
+mdz,application/x-msaccess,additional,Access wizard template
+mht,message/rfc822,additional,MHTML web archive
+mhtml,message/rfc822,additional,MHTML web archive
+mscompress,application/octet-stream,additional,Microsoft Compress (SZDD/KWAJ) compressed file
+msh,application/x-msh,additional,Microsoft Shell script (legacy PowerShell)
+msh1,application/x-msh,additional,Microsoft Shell script v1
+msh1xml,application/xml,additional,Microsoft Shell script v1 XML
+msh2,application/x-msh,additional,Microsoft Shell script v2
+msh2xml,application/xml,additional,Microsoft Shell script v2 XML
+mshxml,application/xml,additional,Microsoft Shell script XML
+msixbundle,application/vnd.ms-msix,additional,Windows app package bundle
+o,application/octet-stream,additional,Compiled object file (Unix)
+obj,application/octet-stream,additional,Compiled object file (Windows)
+odp,application/vnd.oasis.opendocument.presentation,additional,OpenDocument presentation
+ods,application/vnd.oasis.opendocument.spreadsheet,additional,OpenDocument spreadsheet
+odt,application/vnd.oasis.opendocument.text,additional,OpenDocument text document
+one,application/onenote,additional,OneNote section
+onenote,application/onenote,additional,OneNote section (alternate extension)
+ops,application/octet-stream,additional,Office Profile Settings
+os2,application/octet-stream,additional,OS/2 executable
+package,application/octet-stream,additional,macOS Installer / generic package
+pages,application/x-iwork-pages-sffpages,additional,Apple Pages document
+pbix,application/octet-stream,additional,Power BI Desktop file
+pcd,application/octet-stream,additional,Photo CD / Visual Test compiled script
+pdb,application/octet-stream,additional,Program database / Palm OS database
+pdf,application/pdf,additional,Portable Document Format
+php,application/x-httpd-php,additional,PHP source / server script
+pkg,application/octet-stream,additional,macOS Installer package
+plg,application/octet-stream,additional,Developer Studio build log / generic plug-in
+plugin,application/octet-stream,additional,macOS plug-in bundle
+pps,application/vnd.ms-powerpoint,additional,PowerPoint 97-2003 slideshow
+ppsm,application/vnd.ms-powerpoint.slideshow.macroEnabled.12,additional,PowerPoint slideshow with macros
+ppsx,application/vnd.openxmlformats-officedocument.presentationml.slideshow,additional,PowerPoint slideshow (OOXML)
+ppt,application/vnd.ms-powerpoint,additional,PowerPoint 97-2003 presentation
+pptm,application/vnd.ms-powerpoint.presentation.macroEnabled.12,additional,PowerPoint presentation with macros
+pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,additional,PowerPoint presentation (OOXML)
+prf,application/pics-rules,additional,Outlook profile / PICSRules
+prg,application/octet-stream,additional,dBase / FoxPro program source
+ps1,application/x-powershell,additional,PowerShell script
+ps1xml,application/xml,additional,PowerShell formatting/types XML
+ps2,application/x-powershell,additional,PowerShell v2 script
+ps2xml,application/xml,additional,PowerShell v2 XML
+psc1,application/x-powershell,additional,PowerShell console file v1
+psc2,application/x-powershell,additional,PowerShell console file v2
+pst,application/vnd.ms-outlook,additional,Outlook personal storage
+pub,application/x-mspublisher,additional,Microsoft Publisher document
+py,text/x-python,additional,Python source
+rar,application/vnd.rar,additional,RAR archive
+rpm,application/x-rpm,additional,Red Hat package
+rtf,application/rtf,additional,Rich Text Format
+scpt,application/octet-stream,additional,Compiled AppleScript
+service,application/octet-stream,additional,systemd unit file / macOS service bundle
+sh,application/x-sh,additional,Bourne shell script
+shb,application/octet-stream,additional,Windows Shortcut into a document
+shs,application/octet-stream,additional,Shell Scrap Object (legacy malware vector)
+shtm,text/html,additional,Server-parsed HTML (SSI)
+shx,application/octet-stream,additional,AutoCAD shape / index file
+so,application/octet-stream,additional,Unix shared object library
+tar,application/x-tar,additional,Tape archive
+tarz,application/x-compressed-tar,additional,Tar + compress (.tar.Z)
+terminal,application/octet-stream,additional,macOS Terminal profile (can execute commands)
+tgz,application/gzip,additional,Gzip-compressed tar archive
+tmp,application/octet-stream,additional,Generic temporary file
+tool,application/octet-stream,additional,macOS command-line tool bundle
+url,application/internet-shortcut,additional,Internet shortcut (can fetch payload over SMB/HTTP)
+vhd,application/octet-stream,additional,Virtual Hard Disk image
+vsd,application/vnd.visio,additional,Visio 97-2003 drawing
+vsdm,application/vnd.ms-visio.drawing.macroEnabled.main+xml,additional,Visio drawing with macros
+vsdx,application/vnd.ms-visio.drawing.main+xml,additional,Visio drawing (OOXML)
+vsmacros,application/octet-stream,additional,Visual Studio binary-based macro project
+vss,application/vnd.visio,additional,Visio 97-2003 stencil
+vssx,application/vnd.ms-visio.stencil.main+xml,additional,Visio stencil (OOXML)
+vst,application/vnd.visio,additional,Visio 97-2003 template
+vstm,application/vnd.ms-visio.template.macroEnabled.main+xml,additional,Visio template with macros
+vstx,application/vnd.ms-visio.template.main+xml,additional,Visio template (OOXML)
+vsw,application/vnd.visio,additional,Visio workspace
+w16,application/octet-stream,additional,Windows 16-bit executable
+workflow,application/octet-stream,additional,macOS Automator workflow
+ws,text/vbscript,additional,Windows Script File
+xhtml,application/xhtml+xml,additional,XHTML document
+xla,application/vnd.ms-excel,additional,Excel 97-2003 add-in
+xlam,application/vnd.ms-excel.addin.macroEnabled.12,additional,Excel add-in with macros
+xls,application/vnd.ms-excel,additional,Excel 97-2003 workbook
+xlsb,application/vnd.ms-excel.sheet.binary.macroEnabled.12,additional,Excel binary workbook
+xlsm,application/vnd.ms-excel.sheet.macroEnabled.12,additional,Excel workbook with macros
+xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,additional,Excel workbook (OOXML)
+xlt,application/vnd.ms-excel,additional,Excel 97-2003 template
+xltm,application/vnd.ms-excel.template.macroEnabled.12,additional,Excel template with macros
+xltx,application/vnd.openxmlformats-officedocument.spreadsheetml.template,additional,Excel template (OOXML)
+xnk,application/octet-stream,additional,Exchange shortcut (legacy)
+zi,application/octet-stream,additional,Non-standard / vendor-specific extension
+zip,application/zip,additional,ZIP archive
+zipx,application/zip,additional,Extended ZIP archive (WinZip)
